@@ -82,9 +82,8 @@ func _physics_process(delta):
 	move_and_slide(motion)
 	
 	var an = get_node("aimer")
-	var rel_pos = get_viewport().get_mouse_position() - position
-	print("Dumb")
-	print(get_viewport().get_mouse_position())
-	print(position)
-	an.rotation_degrees = atan(rel_pos.y / rel_pos.x)
+	#var rel_pos = get_viewport().get_mouse_position() - position
+	#an.rotation_degrees = atan(rel_pos.y / rel_pos.x)
+	an.look_at(get_viewport().get_mouse_position())
+	an.rotation_degrees += 45
 	
