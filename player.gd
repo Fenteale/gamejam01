@@ -18,7 +18,8 @@ var motion = Vector2()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	print("Dumb")
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -79,4 +80,11 @@ func _physics_process(delta):
 	motion = motion.normalized() * SPEED * delta
 	
 	move_and_slide(motion)
+	
+	var an = get_node("aimer")
+	var rel_pos = get_viewport().get_mouse_position() - position
+	print("Dumb")
+	print(get_viewport().get_mouse_position())
+	print(position)
+	an.rotation_degrees = atan(rel_pos.y / rel_pos.x)
 	
