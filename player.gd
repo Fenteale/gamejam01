@@ -13,11 +13,19 @@ enum {
 }
 
 const SPEED = 40000
+const RELOAD_TIME = 1
+var shots = 6
 
 var motion = Vector2()
+onready var poolyaScene = preload("res://poolya.tscn")
+onready var reloadInd = get_node("reload_ind")
+var reloadText
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_node("reload_ind").visible = false
+	reloadText = get_tree().get_root().get_node("Node2D/ReloadText")
+	reloadText.text = str(shots)
 	print("Dumb")
 
 
@@ -47,6 +55,19 @@ func _physics_process(delta):
 			moveState = MOVE_DOWNRIGHT
 		else:
 			moveState = MOVE_RIGHT
+	
+	if Input.is_action_just_pressed("reload"):
+		var tim = get_node("Timer")
+		if tim.is_stopped():
+			shots = 0
+			reloadText.text = str(shots)
+			reloadInd.visible = true
+			tim.wait_time = RELOAD_TIME
+			tim.start()
+			var tw = get_node("Tween")
+			tw.interpolate_property(reloadInd, "rotation_degrees", 0, 360, RELOAD_TIME, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+			tw.start()
+		
 	
 	match moveState:
 		MOVE_UP:
@@ -85,5 +106,20 @@ func _physics_process(delta):
 	#var rel_pos = get_viewport().get_mouse_position() - position
 	#an.rotation_degrees = atan(rel_pos.y / rel_pos.x)
 	an.look_at(get_viewport().get_mouse_position())
+	if Input.is_action_just_pressed("ui_accept"):
+		if shots > 0:
+			print("Spawning thing")
+			var poolya = poolyaScene.instance()
+			poolya.position = position
+			poolya.rotation = an.rotation
+			get_tree().get_root().add_child(poolya)
+			shots -= 1
+			reloadText.text = str(shots)
 	an.rotation_degrees += 45
 	
+
+
+func _on_Timer_timeout():
+	reloadInd.visible = false
+	shots = 6
+	reloadText.text = str(shots)

@@ -1,48 +1,66 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://BADDIE.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/level_test_wide.PNG" type="Texture" id=3]
+[ext_resource path="res://font/joystix.tres" type="DynamicFont" id=4]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32.2606, 360 )
+[sub_resource type="Theme" id=1]
+default_font = ExtResource( 4 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 581.378, 19.3461 )
+extents = Vector2( 32.2606, 360 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 204.76, 70.8526 )
+extents = Vector2( 581.378, 19.3461 )
 
 [sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 204.76, 70.8526 )
+
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 176.898, 50.8299 )
 
 [node name="Node2D" type="Node2D"]
 
+[node name="ReloadText" type="RichTextLabel" parent="."]
+margin_left = 1193.6
+margin_top = 644.881
+margin_right = 1253.6
+margin_bottom = 709.881
+theme = SubResource( 1 )
+text = "6"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 31.3122, 358.665 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 1236.67, 360 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 644.005, 48.6652 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 640, 670 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 902.352, 121.47 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 1154.64, 557.963 )
 rotation = -1.00007
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="player" parent="." instance=ExtResource( 1 )]
 
@@ -51,3 +69,6 @@ scale = Vector2( 0.817, 0.804 )
 z_index = -1
 texture = ExtResource( 3 )
 centered = false
+
+[node name="BADDIE" parent="." instance=ExtResource( 2 )]
+position = Vector2( 980.05, 356.382 )
