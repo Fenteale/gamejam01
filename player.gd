@@ -24,7 +24,7 @@ var reloadText
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("reload_ind").visible = false
-	reloadText = get_tree().get_root().get_node("Node2D/ReloadText")
+	reloadText = get_tree().get_root().get_node("World/ReloadText")
 	reloadText.text = str(shots)
 	print("Dumb")
 

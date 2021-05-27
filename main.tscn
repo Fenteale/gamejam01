@@ -20,7 +20,7 @@ extents = Vector2( 204.76, 70.8526 )
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 176.898, 50.8299 )
 
-[node name="Node2D" type="Node2D"]
+[node name="World" type="Node2D"]
 
 [node name="ReloadText" type="RichTextLabel" parent="."]
 margin_left = 1193.6
