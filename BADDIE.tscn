@@ -161,8 +161,8 @@ tracks/3/keys = {
 }
 
 [node name="BADDIE" type="KinematicBody2D"]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 6
+collision_mask = 6
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

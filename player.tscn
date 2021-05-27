@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://sprites/playerdummy_angle2.png" type="Texture" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -7,6 +7,41 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 50 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 51.8733
+
+[sub_resource type="Animation" id=3]
+resource_name = "Flashing"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="KinematicBody2D2" type="KinematicBody2D"]
 position = Vector2( 471.211, 236.865 )
@@ -34,4 +69,21 @@ texture = ExtResource( 4 )
 
 [node name="Tween" type="Tween" parent="."]
 
+[node name="hurtme" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtme"]
+shape = SubResource( 2 )
+
+[node name="IFrames" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Flashing = SubResource( 3 )
+anims/Idle = SubResource( 4 )
+
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="hurtme" to="." method="_on_hurtme_body_entered"]
+[connection signal="body_exited" from="hurtme" to="." method="_on_hurtme_body_exited"]
+[connection signal="timeout" from="IFrames" to="." method="_on_IFrames_timeout"]

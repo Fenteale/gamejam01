@@ -14,20 +14,26 @@ enum {
 
 const SPEED = 40000
 const RELOAD_TIME = 1
+const MAX_HP = 3
+var hp = MAX_HP
 var shots = 6
+var isDying = false
 
 var motion = Vector2()
 onready var poolyaScene = preload("res://poolya.tscn")
 onready var reloadInd = get_node("reload_ind")
+onready var Iframe = get_node("IFrames")
+onready var anim = get_node("AnimationPlayer")
 var reloadText
+var hpText
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("reload_ind").visible = false
 	reloadText = get_tree().get_root().get_node("World/ReloadText")
 	reloadText.text = str(shots)
-	print("Dumb")
-
+	hpText = get_tree().get_root().get_node("World/HP")
+	hpText.text = str(hp)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -123,3 +129,26 @@ func _on_Timer_timeout():
 	reloadInd.visible = false
 	shots = 6
 	reloadText.text = str(shots)
+
+
+func _on_hurtme_body_entered(body):
+	if Iframe.is_stopped():
+		isDying = true
+		hp -= 1
+		hpText.text = str(hp)
+		anim.play("Flashing")
+		Iframe.start()
+
+
+func _on_IFrames_timeout():
+	if isDying == true:
+		hp -= 1
+		hpText.text = str(hp)
+		anim.play("Flashing")
+		Iframe.start()
+	else:
+		anim.play("Idle")
+
+
+func _on_hurtme_body_exited(body):
+	isDying = false
