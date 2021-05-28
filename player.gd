@@ -38,6 +38,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	if hp <= 0:
+		get_tree().change_scene("res://gambeover.tscn")
+	
+	
 	var moveState = NO_MOVEMENT
 	if Input.is_action_pressed("ui_up"):
 		moveState = MOVE_UP
@@ -73,7 +77,7 @@ func _physics_process(delta):
 			var tw = get_node("Tween")
 			tw.interpolate_property(reloadInd, "rotation_degrees", 0, 360, RELOAD_TIME, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 			tw.start()
-		
+	
 	
 	match moveState:
 		MOVE_UP:
