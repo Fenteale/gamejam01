@@ -86,6 +86,7 @@ func _physics_process(delta):
 		MOVE_DOWN:
 			motion.y = 1
 			motion.x = 0
+			$Sprite.play("down")
 		MOVE_LEFT:
 			motion.y = 0
 			motion.x = -1
@@ -107,6 +108,7 @@ func _physics_process(delta):
 		NO_MOVEMENT:
 			motion.y = 0
 			motion.x = 0
+			$Sprite.play("default")
 			
 	motion = motion.normalized() * SPEED * delta
 	
