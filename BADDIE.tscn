@@ -1,14 +1,29 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://sprites/enemydummy.png" type="Texture" id=1]
+[ext_resource path="res://sprites/wulfo.png" type="Texture" id=1]
 [ext_resource path="res://BADDIE.gd" type="Script" id=2]
 [ext_resource path="res://sprites/dummy_shadow.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 14.3508, 29.6343 )
+extents = Vector2( 22.4712, 35.3277 )
 
-[sub_resource type="Animation" id=2]
-resource_name = "idle"
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 32, 36 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 36, 32, 36 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
 tracks/0/interp = 1
@@ -58,8 +73,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "pounce"
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
 tracks/0/interp = 2
@@ -109,8 +123,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "shake"
+[sub_resource type="Animation" id=7]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
 tracks/0/interp = 2
@@ -160,8 +173,7 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "spawn_sky"
+[sub_resource type="Animation" id=8]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
 tracks/0/interp = 1
@@ -223,8 +235,7 @@ tracks/4/keys = {
 "values": [ Vector2( 0.066, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "spawn_window_bottom"
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite2:position")
 tracks/0/interp = 2
@@ -274,7 +285,7 @@ tracks/3/keys = {
 "values": [ 0.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=10]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -289,7 +300,7 @@ tracks/0/keys = {
 "values": [ false, true, false, true ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=11]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
 tracks/0/interp = 1
@@ -312,10 +323,12 @@ script = ExtResource( 2 )
 position = Vector2( 0.297302, 12.4867 )
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.5, 0.5 )
+[node name="Sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 2.75, 2.75 )
 z_index = 1
-texture = ExtResource( 1 )
+frames = SubResource( 4 )
+frame = 1
+playing = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
@@ -327,15 +340,15 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/idle = SubResource( 2 )
-anims/pounce = SubResource( 3 )
-anims/shake = SubResource( 4 )
-anims/spawn_sky = SubResource( 5 )
-anims/spawn_window_bottom = SubResource( 6 )
+anims/idle = SubResource( 5 )
+anims/pounce = SubResource( 6 )
+anims/shake = SubResource( 7 )
+anims/spawn_sky = SubResource( 8 )
+anims/spawn_window_bottom = SubResource( 9 )
 
 [node name="damageAnim" type="AnimationPlayer" parent="."]
-anims/damaged = SubResource( 7 )
-anims/fine = SubResource( 8 )
+anims/damaged = SubResource( 10 )
+anims/fine = SubResource( 11 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
