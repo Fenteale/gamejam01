@@ -176,6 +176,7 @@ tracks/1/keys = {
 
 [node name="KinematicBody2D2" type="KinematicBody2D"]
 position = Vector2( 471.211, 236.865 )
+z_index = 2
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -187,7 +188,7 @@ scale = Vector2( 2.75, 2.75 )
 z_index = 1
 frames = SubResource( 21 )
 animation = "down"
-frame = 3
+frame = 7
 speed_scale = 2.0
 playing = true
 

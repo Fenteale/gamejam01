@@ -4,9 +4,6 @@
 [ext_resource path="res://BADDIE.gd" type="Script" id=2]
 [ext_resource path="res://sprites/dummy_shadow.png" type="Texture" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 22.4712, 35.3277 )
-
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 32, 36 )
@@ -22,6 +19,9 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 30.1465, 25.6501 )
 
 [sub_resource type="Animation" id=5]
 tracks/0/type = "value"
@@ -319,16 +319,16 @@ collision_layer = 6
 collision_mask = 4
 script = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.297302, 12.4867 )
-shape = SubResource( 1 )
-
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2.75, 2.75 )
 z_index = 1
 frames = SubResource( 4 )
-frame = 1
 playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.297302, 12.4867 )
+z_index = 1
+shape = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
