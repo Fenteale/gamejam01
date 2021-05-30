@@ -36,7 +36,7 @@ func _ready():
 	reloadText = get_tree().get_root().get_node("World/ReloadText")
 	reloadText.text = str(shots)
 	hpText = get_tree().get_root().get_node("World/HP")
-	hpText.text = str(hp)
+	hpText.frame = hp
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -139,7 +139,9 @@ func _physics_process(delta):
 			reloadText.text = str(shots)
 			$ShootDelay.start()
 			$aimer.stop()
+			$aimer.play("up")
 			$aimer.play("right")
+			$aimer.playing = true
 	#an.rotation_degrees += 45
 	
 
@@ -154,7 +156,7 @@ func _on_hurtme_body_entered(body):
 	if Iframe.is_stopped() and $RollTimer.is_stopped():
 		isDying = true
 		hp -= 1
-		hpText.text = str(hp)
+		hpText.frame = hp
 		anim.play("Flashing")
 		Iframe.start()
 
@@ -162,7 +164,7 @@ func _on_hurtme_body_entered(body):
 func _on_IFrames_timeout():
 	if isDying == true:
 		hp -= 1
-		hpText.text = str(hp)
+		hpText.frame = hp
 		anim.play("Flashing")
 		Iframe.start()
 	else:
@@ -177,5 +179,7 @@ func _on_RollTimer_timeout():
 	speed = MAX_SPEED
 
 func add_hp(added_hp):
-	hp += added_hp
-	hpText.text = str(hp)
+	#old code
+	#hp += added_hp
+	hp = MAX_HP
+	hpText.frame = hp
