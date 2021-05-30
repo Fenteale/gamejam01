@@ -12,16 +12,16 @@ extents = Vector2( 438.168, 360 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 300.58, 42.7592 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 581.134, 34.5625 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 301.784, 38.2852 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 176.898, 50.8299 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 44.2766, 99.7336 )
 
 [node name="World" type="Node2D"]
@@ -56,21 +56,21 @@ shape = SubResource( 2 )
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 542.61, 687.98 )
-shape = SubResource( 6 )
+shape = SubResource( 3 )
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 333.256, 115.918 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 1175.15, 606.046 )
 rotation = -0.75882
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( 102.029, 191.123 )
 rotation = 4.1791
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="KinematicBody2D"]
 position = Vector2( 770.412, 40.9568 )
