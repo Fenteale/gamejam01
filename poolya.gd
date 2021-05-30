@@ -27,3 +27,7 @@ func _on_KinematicBody2D_body_entered(body):
 	if body.has_method("on_hit"):
 		body.on_hit(DAMAGE)
 	queue_free()
+
+
+func _on_Timer_timeout():
+	$Sprite.visible = true
