@@ -54,13 +54,13 @@ func _on_Timer_timeout():
 			state = 2
 		2:
 			#tw.interpolate_property(self, "speed", 0, SPEED_MAX, STATE_TIME, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
-			speed = 30000
+			speed = 50000
 			pouncePos = pl.position - position
 			pouncePos = pouncePos.normalized()
 			#tw.start()
 			#tim.stop()
 			anim.play("pounce") #, -1, 0.7)
-			tim.set_wait_time(1)
+			tim.set_wait_time(0.7)
 			tim.start()
 			state = 3
 		3:

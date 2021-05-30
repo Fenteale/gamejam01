@@ -26,6 +26,7 @@ onready var Iframe = get_node("IFrames")
 onready var anim = get_node("AnimationPlayer")
 var reloadText
 var hpText
+var moveState
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,43 +42,46 @@ func _physics_process(delta):
 	if hp <= 0:
 		get_tree().change_scene("res://gambeover.tscn")
 	
-	
-	var moveState = NO_MOVEMENT
-	if Input.is_action_pressed("ui_up"):
-		moveState = MOVE_UP
- 
-	if Input.is_action_pressed("ui_down"):
-		moveState = MOVE_DOWN
+	if $RollTimer.is_stopped():
+		moveState = NO_MOVEMENT
+		if Input.is_action_pressed("ui_up"):
+			moveState = MOVE_UP
+	 
+		if Input.is_action_pressed("ui_down"):
+			moveState = MOVE_DOWN
 
 
-	if Input.is_action_pressed("ui_left"):
-		if Input.is_action_pressed("ui_up"):
-			moveState = MOVE_UPLEFT
-		elif Input.is_action_pressed("ui_down"):
-			moveState = MOVE_DOWNLEFT
-		else:
-			moveState = MOVE_LEFT
- 
-	if Input.is_action_pressed("ui_right"):
-		if Input.is_action_pressed("ui_up"):
-			moveState = MOVE_UPRIGHT
-		elif Input.is_action_pressed("ui_down"):
-			moveState = MOVE_DOWNRIGHT
-		else:
-			moveState = MOVE_RIGHT
-	
-	if Input.is_action_just_pressed("reload"):
-		var tim = get_node("Timer")
-		if tim.is_stopped():
-			shots = 0
-			reloadText.text = str(shots)
-			reloadInd.visible = true
-			tim.wait_time = RELOAD_TIME
-			tim.start()
-			var tw = get_node("Tween")
-			tw.interpolate_property(reloadInd, "rotation_degrees", 0, 360, RELOAD_TIME, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-			tw.start()
-	
+		if Input.is_action_pressed("ui_left"):
+			if Input.is_action_pressed("ui_up"):
+				moveState = MOVE_UPLEFT
+			elif Input.is_action_pressed("ui_down"):
+				moveState = MOVE_DOWNLEFT
+			else:
+				moveState = MOVE_LEFT
+	 
+		if Input.is_action_pressed("ui_right"):
+			if Input.is_action_pressed("ui_up"):
+				moveState = MOVE_UPRIGHT
+			elif Input.is_action_pressed("ui_down"):
+				moveState = MOVE_DOWNRIGHT
+			else:
+				moveState = MOVE_RIGHT
+		
+		if Input.is_action_just_pressed("reload"):
+			var tim = get_node("Timer")
+			if tim.is_stopped():
+				shots = 0
+				reloadText.text = str(shots)
+				reloadInd.visible = true
+				tim.wait_time = RELOAD_TIME
+				tim.start()
+				var tw = get_node("Tween")
+				tw.interpolate_property(reloadInd, "rotation_degrees", 0, 360, RELOAD_TIME, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+				tw.start()
+		
+		if Input.is_action_just_pressed("roll"):
+			$RollAnim.play("roll")
+			$RollTimer.start()
 	
 	match moveState:
 		MOVE_UP:
@@ -121,7 +125,7 @@ func _physics_process(delta):
 	#var rel_pos = get_viewport().get_mouse_position() - position
 	#an.rotation_degrees = atan(rel_pos.y / rel_pos.x)
 	an.look_at(get_viewport().get_mouse_position())
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept") and $RollTimer.is_stopped():
 		if shots > 0:
 			print("Spawning thing")
 			var poolya = poolyaScene.instance()
@@ -141,7 +145,7 @@ func _on_Timer_timeout():
 
 
 func _on_hurtme_body_entered(body):
-	if Iframe.is_stopped():
+	if Iframe.is_stopped() and $RollTimer.is_stopped():
 		isDying = true
 		hp -= 1
 		hpText.text = str(hp)

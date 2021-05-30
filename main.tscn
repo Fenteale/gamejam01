@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://levels/level_saloon_1.png" type="Texture" id=3]
+[ext_resource path="res://levels/Saloon_Final/level_saloon_base.png" type="Texture" id=2]
+[ext_resource path="res://levels/Saloon_Final/level_saloon_windowoverhead.png" type="Texture" id=3]
 [ext_resource path="res://font/main_theme.tres" type="Theme" id=4]
 [ext_resource path="res://level1.gd" type="Script" id=5]
 
@@ -40,7 +41,7 @@ collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( -376.719, 362.229 )
+position = Vector2( -372.476, 363.643 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="KinematicBody2D"]
@@ -75,6 +76,11 @@ position = Vector2( 361.754, 465.123 )
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 3.2, 3 )
 z_index = -1
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Sprite" type="Sprite" parent="Sprite"]
+z_index = 5
 texture = ExtResource( 3 )
 centered = false
 

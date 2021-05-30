@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://sprites/BIG BOY.DIS.png" type="Texture" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
@@ -146,6 +146,34 @@ tracks/0/keys = {
 "values": [ true ]
 }
 
+[sub_resource type="Animation" id=25]
+resource_name = "roll"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.75, 2.75 ), Vector2( 2.75, 1 ), Vector2( 2.75, 1 ), Vector2( 2.75, 2.75 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -0.588928, -1.98872 ), Vector2( -0.589, 24.9 ), Vector2( -0.589, 24.9 ), Vector2( -0.589, -1.989 ) ]
+}
+
 [node name="KinematicBody2D2" type="KinematicBody2D"]
 position = Vector2( 471.211, 236.865 )
 script = ExtResource( 2 )
@@ -154,12 +182,12 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( -0.588928, -1.98872 )
+position = Vector2( -0.589, -1.989 )
 scale = Vector2( 2.75, 2.75 )
 z_index = 1
 frames = SubResource( 21 )
 animation = "down"
-frame = 7
+frame = 3
 speed_scale = 2.0
 playing = true
 
@@ -198,6 +226,13 @@ anims/Idle = SubResource( 24 )
 position = Vector2( -1.25995, 4.6394 )
 scale = Vector2( 0.415974, 0.415974 )
 texture = ExtResource( 5 )
+
+[node name="RollTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="RollAnim" type="AnimationPlayer" parent="."]
+anims/roll = SubResource( 25 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_entered" from="hurtme" to="." method="_on_hurtme_body_entered"]

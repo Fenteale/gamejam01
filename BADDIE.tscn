@@ -223,7 +223,7 @@ tracks/4/keys = {
 "values": [ Vector2( 0.066, 0.5 ), Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=6]
 resource_name = "spawn_window_bottom"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite2:position")
@@ -274,8 +274,7 @@ tracks/3/keys = {
 "values": [ 0.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "damaged"
+[sub_resource type="Animation" id=7]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
@@ -290,8 +289,7 @@ tracks/0/keys = {
 "values": [ false, true, false, true ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "fine"
+[sub_resource type="Animation" id=8]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:visible")
 tracks/0/interp = 1
@@ -333,11 +331,11 @@ anims/idle = SubResource( 2 )
 anims/pounce = SubResource( 3 )
 anims/shake = SubResource( 4 )
 anims/spawn_sky = SubResource( 5 )
-anims/spawn_window_bottom = SubResource( 8 )
+anims/spawn_window_bottom = SubResource( 6 )
 
 [node name="damageAnim" type="AnimationPlayer" parent="."]
-anims/damaged = SubResource( 6 )
-anims/fine = SubResource( 7 )
+anims/damaged = SubResource( 7 )
+anims/fine = SubResource( 8 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
