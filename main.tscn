@@ -22,7 +22,6 @@ extents = Vector2( 176.898, 50.8299 )
 extents = Vector2( 44.2766, 99.7336 )
 
 [node name="World" type="Node2D"]
-position = Vector2( -1.12244, -1.12247 )
 script = ExtResource( 5 )
 
 [node name="ReloadText" type="RichTextLabel" parent="."]
@@ -85,10 +84,10 @@ texture = ExtResource( 3 )
 centered = false
 
 [node name="HP_Flavor" type="RichTextLabel" parent="."]
-margin_left = 15.0138
-margin_top = 648.954
-margin_right = 105.014
-margin_bottom = 711.954
+margin_left = 16.2044
+margin_top = 645.382
+margin_right = 106.205
+margin_bottom = 708.382
 theme = ExtResource( 4 )
 text = "HP"
 __meta__ = {
@@ -96,10 +95,10 @@ __meta__ = {
 }
 
 [node name="HP" type="RichTextLabel" parent="."]
-margin_left = 118.461
-margin_top = 650.163
-margin_right = 231.461
-margin_bottom = 715.163
+margin_left = 112.905
+margin_top = 644.21
+margin_right = 225.905
+margin_bottom = 709.21
 theme = ExtResource( 4 )
 text = "3"
 __meta__ = {
@@ -110,4 +109,21 @@ __meta__ = {
 wait_time = 2.0
 one_shot = true
 
+[node name="roundTimer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+
+[node name="RoundOverText" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 29.0
+margin_top = 14.0
+margin_right = 1238.0
+margin_bottom = 133.0
+theme = ExtResource( 4 )
+text = "TIME 'TILL NEXT ROUND:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="timeout" from="windowTimer" to="." method="_on_windowTimer_timeout"]
+[connection signal="timeout" from="roundTimer" to="." method="_on_roundTimer_timeout"]

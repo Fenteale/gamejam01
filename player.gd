@@ -12,12 +12,14 @@ enum {
 	MOVE_DOWNLEFT
 }
 
-const SPEED = 40000
+const MAX_SPEED = 20000
+const DODGE_SPEED = 40000
 const RELOAD_TIME = 1
 const MAX_HP = 3
 var hp = MAX_HP
 var shots = 6
 var isDying = false
+var speed = MAX_SPEED
 
 var motion = Vector2()
 onready var poolyaScene = preload("res://poolya.tscn")
@@ -80,6 +82,7 @@ func _physics_process(delta):
 				tw.start()
 		
 		if Input.is_action_just_pressed("roll"):
+			speed = DODGE_SPEED
 			$RollAnim.play("roll")
 			$RollTimer.start()
 	
@@ -117,7 +120,7 @@ func _physics_process(delta):
 			motion.x = 0
 			$Sprite.play("default")
 			
-	motion = motion.normalized() * SPEED * delta
+	motion = motion.normalized() * speed * delta
 	
 	move_and_slide(motion)
 	
@@ -165,3 +168,7 @@ func _on_IFrames_timeout():
 
 func _on_hurtme_body_exited(body):
 	isDying = false
+
+
+func _on_RollTimer_timeout():
+	speed = MAX_SPEED

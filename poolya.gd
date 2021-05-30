@@ -22,7 +22,7 @@ func _physics_process(delta):
 
 func _on_KinematicBody2D_body_entered(body):
 	#DO when the bullet hits the bad guy
-	print("BADDIE DETECTED")
+	#print("BADDIE DETECTED")
 	#body.queue_free()
 	if body.has_method("on_hit"):
 		body.on_hit(DAMAGE)
