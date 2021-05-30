@@ -1,11 +1,13 @@
 extends Node2D
 
 
-const NUM_ENEMIES = 10
-const NUM_ENEMIES_MAX_IN_ROOM = 3
-var enemiesleft = NUM_ENEMIES
+var NUM_ENEMIES = 10
+var NUM_ENEMIES_MAX_IN_ROOM = 3
+var enemiesleft # = NUM_ENEMIES
 var bad_inst
 var player
+var countdown #= NUM_ENEMIES
+var roundNum = 0
 
 onready var windowTimer = get_node("windowTimer")
 var windowOcc = false
@@ -13,6 +15,9 @@ var windowOcc = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	enemiesleft = NUM_ENEMIES
+	countdown = NUM_ENEMIES
+	windowOcc = false
 	bad_inst = preload("res://BADDIE.tscn")
 	player = get_node("player")
 	
@@ -26,11 +31,27 @@ func _ready():
 	
 	for i in range(tospawn):
 		spawn_badguy()
+		
+
+func _process(delta):
+	if $RoundOverText.visible:
+		$RoundOverText.text = "TIME 'TILL NEXT ROUND: " + str($roundTimer.time_left).pad_decimals(2)
 
 func guy_dead():
-	enemiesleft -= 1
+	
+	countdown -= 1
+	print(countdown)
 	if enemiesleft > 0:
 		spawn_badguy()
+	enemiesleft -= 1
+	if countdown <= 0:
+		NUM_ENEMIES += 1
+		roundNum += 1
+		if (roundNum % 3) == 0:
+			NUM_ENEMIES_MAX_IN_ROOM += 1 
+		$roundTimer.start()
+		$RoundOverText.visible = true
+		
 
 func spawn_badguy():
 	var bad = bad_inst.instance()
@@ -67,6 +88,10 @@ func spawn_badguy():
 			bad.spawn_anim = "spawn_window_bottom"
 			
 			
+	if roundNum > 3:
+		bad.hp = 3
+	if roundNum > 7:
+		bad.hp = 4
 	add_child(bad)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,3 +101,8 @@ func spawn_badguy():
 
 func _on_windowTimer_timeout():
 	windowOcc = false
+
+
+func _on_roundTimer_timeout():
+	$RoundOverText.visible = false
+	_ready()
