@@ -73,7 +73,6 @@ shape = SubResource( 5 )
 position = Vector2( 361.754, 465.123 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -2.83167, -2.83163 )
 scale = Vector2( 3.2, 3 )
 z_index = -1
 texture = ExtResource( 3 )
@@ -100,3 +99,9 @@ text = "3"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="windowTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="windowTimer" to="." method="_on_windowTimer_timeout"]
