@@ -83,6 +83,7 @@ func _physics_process(delta):
 		MOVE_UP:
 			motion.y = -1
 			motion.x = 0
+			$Sprite.play("up")
 		MOVE_DOWN:
 			motion.y = 1
 			motion.x = 0
@@ -90,9 +91,11 @@ func _physics_process(delta):
 		MOVE_LEFT:
 			motion.y = 0
 			motion.x = -1
+			$Sprite.play("left")
 		MOVE_RIGHT:
 			motion.y = 0
 			motion.x = 1
+			$Sprite.play("right")
 		MOVE_UPLEFT:
 			motion.y = -1
 			motion.x = -1
