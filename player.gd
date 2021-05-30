@@ -128,7 +128,7 @@ func _physics_process(delta):
 	#var rel_pos = get_viewport().get_mouse_position() - position
 	#an.rotation_degrees = atan(rel_pos.y / rel_pos.x)
 	an.look_at(get_viewport().get_mouse_position())
-	if Input.is_action_just_pressed("ui_accept") and $RollTimer.is_stopped():
+	if Input.is_action_pressed("ui_accept") and $RollTimer.is_stopped() and $ShootDelay.is_stopped():
 		if shots > 0:
 			print("Spawning thing")
 			var poolya = poolyaScene.instance()
@@ -137,7 +137,10 @@ func _physics_process(delta):
 			get_tree().get_root().add_child(poolya)
 			shots -= 1
 			reloadText.text = str(shots)
-	an.rotation_degrees += 45
+			$ShootDelay.start()
+			$aimer.stop()
+			$aimer.play("right")
+	#an.rotation_degrees += 45
 	
 
 
@@ -172,3 +175,7 @@ func _on_hurtme_body_exited(body):
 
 func _on_RollTimer_timeout():
 	speed = MAX_SPEED
+
+func add_hp(added_hp):
+	hp += added_hp
+	hpText.text = str(hp)

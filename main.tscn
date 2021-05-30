@@ -125,10 +125,10 @@ one_shot = true
 
 [node name="RoundOverText" type="RichTextLabel" parent="."]
 visible = false
-margin_left = 29.0
-margin_top = 14.0
-margin_right = 1238.0
-margin_bottom = 133.0
+margin_left = 78.4442
+margin_top = 18.4949
+margin_right = 1287.44
+margin_bottom = 137.495
 theme = ExtResource( 4 )
 text = "TIME 'TILL NEXT ROUND:"
 __meta__ = {

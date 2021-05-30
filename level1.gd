@@ -9,7 +9,11 @@ var player
 var countdown #= NUM_ENEMIES
 var roundNum = 0
 
+var pow1
+var pow2
+
 onready var windowTimer = get_node("windowTimer")
+onready var pw_inst = preload("res://powerup.tscn")
 var windowOcc = false
 
 # Called when the node enters the scene tree for the first time.
@@ -35,7 +39,7 @@ func _ready():
 
 func _process(delta):
 	if $RoundOverText.visible:
-		$RoundOverText.text = "TIME 'TILL NEXT ROUND: " + str($roundTimer.time_left).pad_decimals(2)
+		$RoundOverText.text = "TIME 'TILL NEXT ROUND: " + str($roundTimer.time_left).pad_decimals(0)
 
 func guy_dead():
 	
@@ -48,7 +52,15 @@ func guy_dead():
 		NUM_ENEMIES += 1
 		roundNum += 1
 		if (roundNum % 3) == 0:
-			NUM_ENEMIES_MAX_IN_ROOM += 1 
+			NUM_ENEMIES_MAX_IN_ROOM += 1
+		var pow_group = Node2D.new() 
+		pow1 = pw_inst.instance()
+		pow1.position = Vector2(460, 320)
+		pow_group.add_child(pow1)
+		pow2 = pw_inst.instance()
+		pow2.position = Vector2(830, 320)
+		pow_group.add_child(pow2)
+		add_child(pow_group)
 		$roundTimer.start()
 		$RoundOverText.visible = true
 		
@@ -98,6 +110,11 @@ func spawn_badguy():
 #func _process(delta):
 #	pass
 
+func remove_powerups():
+	if pow1:
+		pow1.queue_free()
+	if pow2:
+		pow2.queue_free()
 
 func _on_windowTimer_timeout():
 	windowOcc = false
