@@ -1,10 +1,13 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://sprites/BIG BOY.DIS.png" type="Texture" id=1]
 [ext_resource path="res://player.gd" type="Script" id=2]
 [ext_resource path="res://sprites/gun_sprites.png" type="Texture" id=3]
 [ext_resource path="res://sprites/reload.png" type="Texture" id=4]
 [ext_resource path="res://sprites/dummy_shadow.png" type="Texture" id=5]
+[ext_resource path="res://sfx/sfx_gunshot.wav" type="AudioStream" id=6]
+[ext_resource path="res://sfx/sfx_hurt.wav" type="AudioStream" id=7]
+[ext_resource path="res://sfx/sfx_reload.wav" type="AudioStream" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 40.1688, 41.9125 )
@@ -297,7 +300,6 @@ scale = Vector2( 2.75, 2.75 )
 z_index = 1
 frames = SubResource( 35 )
 animation = "right"
-frame = 7
 speed_scale = 2.0
 playing = true
 
@@ -348,6 +350,15 @@ anims/roll = SubResource( 49 )
 [node name="ShootDelay" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
+
+[node name="shuut" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
+
+[node name="hurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+
+[node name="reloadsnd" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_entered" from="hurtme" to="." method="_on_hurtme_body_entered"]

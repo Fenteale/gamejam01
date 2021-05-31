@@ -4,7 +4,7 @@
 [ext_resource path="res://BADDIE.gd" type="Script" id=2]
 [ext_resource path="res://sprites/dummy_shadow.png" type="Texture" id=3]
 [ext_resource path="res://sfx/Wolf_Attack_01.wav" type="AudioStream" id=4]
-[ext_resource path="res://sfx/Wolf_Death_01.wav" type="AudioStream" id=5]
+[ext_resource path="res://sfx/sfx_wolfdie.wav" type="AudioStream" id=5]
 [ext_resource path="res://sfx/Wolf_Death_02.wav" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -261,6 +261,7 @@ tracks/4/keys = {
 }
 
 [sub_resource type="Animation" id=13]
+length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite2:position")
 tracks/0/interp = 2
@@ -268,10 +269,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.9 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 719.807 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, 213.276 ), Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite2:rotation_degrees")
@@ -280,7 +281,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.9 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 0.0 ]
@@ -292,10 +293,10 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.9 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( -3.05176e-05, 720.539 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( -9.04225e-06, 213.493 ), Vector2( 0, 0 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:rotation_degrees")
@@ -304,7 +305,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.9 ),
+"times": PoolRealArray( 0, 0.3 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 0.0 ]

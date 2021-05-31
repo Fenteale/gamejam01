@@ -9,6 +9,7 @@ var bad_inst
 var player
 var countdown #= NUM_ENEMIES
 var roundNum = 0
+var exploded = [false, false, false]
 
 var pow1
 var pow2
@@ -25,6 +26,7 @@ func _ready():
 	windowOcc = false
 	bad_inst = preload("res://BADDIE.tscn")
 	player = get_node("player")
+	exploded
 	
 	var tospawn
 	if NUM_ENEMIES > NUM_ENEMIES_MAX_IN_ROOM:
@@ -45,7 +47,7 @@ func _process(delta):
 func guy_dead():
 	
 	countdown -= 1
-	print(countdown)
+	#print(countdown)
 	if enemiesleft > 0:
 		spawn_badguy()
 	enemiesleft -= 1
@@ -89,6 +91,9 @@ func spawn_badguy():
 					state = -1
 			0:
 				state = 0
+	#DEBUG DEBUG FORCE WINDOW
+	#state = 1
+	
 	match state:
 		0:
 			bad.position = Vector2((randi() % 970) + 80, (randi() % 240) + 300)
@@ -96,15 +101,32 @@ func spawn_badguy():
 				bad.position = Vector2((randi() % 970) + 80, (randi() % 240) + 300)
 			bad.spawn_anim = "spawn_sky"
 		1:
+			var candInd = 0
 			#warning: mega jank inbound
+				
 			var lengths = [Vector2(850, 600), Vector2(515 ,600), Vector2(200 ,600)]
-			var candidate = lengths[0]
-			if (candidate - player.position).length() < (lengths[1] - player.position).length():
-				candidate = lengths[1]
-			if (candidate - player.position).length() < (lengths[2] - player.position).length():
-				candidate = lengths[2]
-			bad.position = candidate
+			#var candidate = lengths[0]
+			if (lengths[candInd] - player.position).length() < (lengths[1] - player.position).length():
+				candInd = 1
+			if (lengths[candInd] - player.position).length() < (lengths[2] - player.position).length():
+				candInd = 2
+			bad.position = lengths[candInd]
 			bad.spawn_anim = "spawn_window_bottom"
+			if exploded[candInd] == false:
+				exploded[candInd] = true
+				print(exploded)
+				match candInd:
+					0:
+						$explode_windows.play("right")
+					1:
+						$explode_windows.play("mid")
+					2:
+						$explode_windows.play("left")
+					_:
+						pass
+			
+			
+	
 			
 			
 	if roundNum > 3:
@@ -113,11 +135,14 @@ func spawn_badguy():
 		bad.hp = 4
 	add_child(bad)
 
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
-func remove_powerups():
+func remove_powerups(playSound):
+	if playSound:
+		$upSound.play()
 	if is_instance_valid(pow1):
 		pow1.queue_free()
 	if is_instance_valid(pow2):
@@ -129,5 +154,5 @@ func _on_windowTimer_timeout():
 
 func _on_roundTimer_timeout():
 	$RoundOverText.visible = false
-	remove_powerups()
+	remove_powerups(false)
 	_ready()

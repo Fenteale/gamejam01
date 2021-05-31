@@ -100,6 +100,8 @@ func _physics_process(delta):
 				tim.start()
 				var tw = get_node("Tween")
 				tw.interpolate_property(reloadInd, "global_rotation", 0, 4*PI, RELOAD_TIME, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+				$reloadsnd.set_pitch_scale(1 + (1 - RELOAD_TIME))
+				$reloadsnd.play()
 				tw.start()
 		
 		if Input.is_action_just_pressed("roll"):
@@ -183,13 +185,14 @@ func _physics_process(delta):
 	
 	if Input.is_action_pressed("ui_accept") and $RollTimer.is_stopped() and $ShootDelay.is_stopped():
 		if shots > 0:
-			print("Spawning thing")
+			#print("Spawning thing")
 			var poolya = poolyaScene.instance()
 			poolya.position = position
 			poolya.rotation = an.rotation
 			poolya.DAMAGE = damage
 			poolya.pierce = pierce
 			get_tree().get_root().add_child(poolya)
+			$shuut.play()
 			shots -= 1
 			reloadText.frame = shots
 			$ShootDelay.start()
@@ -225,6 +228,7 @@ func _on_hurtme_body_entered(body):
 		isDying = true
 		hp -= 1
 		hpText.frame = hp
+		$hurt.play()
 		anim.play("Flashing")
 		Iframe.start()
 

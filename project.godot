@@ -10,8 +10,8 @@ config_version=4
 
 [application]
 
-config/name="GameJam01"
-run/main_scene="res://main.tscn"
+config/name="SilverSorcery"
+run/main_scene="res://start.tscn"
 config/icon="res://icon.png"
 
 [display]

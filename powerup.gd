@@ -15,7 +15,6 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
 func _on_Area2D_body_entered(body):
 	if obtainable:
 		match type:
@@ -30,7 +29,7 @@ func _on_Area2D_body_entered(body):
 			4:
 				body.add_speed()
 
-		get_tree().get_root().get_node("World").remove_powerups()
+		get_tree().get_root().get_node("World").remove_powerups(true)
 
 
 func _on_Timer_timeout():
