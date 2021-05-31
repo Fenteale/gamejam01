@@ -50,8 +50,8 @@ func _ready():
 	damage = 1
 	
 	get_node("aimer/reload_ind").visible = false
-	reloadText = get_tree().get_root().get_node("World/ReloadText")
-	reloadText.text = str(shots)
+	reloadText = get_tree().get_root().get_node("World/ShotSprite")
+	reloadText.frame = shots
 	hpText = get_tree().get_root().get_node("World/HP")
 	hpText.frame = hp
 	$aimer.frame = 2
@@ -94,7 +94,7 @@ func _physics_process(delta):
 			var tim = get_node("Timer")
 			if tim.is_stopped():
 				shots = 0
-				reloadText.text = str(shots)
+				reloadText.frame = shots
 				reloadInd.visible = true
 				tim.wait_time = RELOAD_TIME
 				tim.start()
@@ -191,7 +191,7 @@ func _physics_process(delta):
 			poolya.pierce = pierce
 			get_tree().get_root().add_child(poolya)
 			shots -= 1
-			reloadText.text = str(shots)
+			reloadText.frame = shots
 			$ShootDelay.start()
 			an.stop()
 			match spriteToPlay:
@@ -215,7 +215,7 @@ func _physics_process(delta):
 func _on_Timer_timeout():
 	reloadInd.visible = false
 	shots = 6
-	reloadText.text = str(shots)
+	reloadText.frame = shots
 
 
 func _on_hurtme_body_entered(body):

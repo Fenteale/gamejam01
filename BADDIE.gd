@@ -30,13 +30,16 @@ func on_hit(damage):
 		$damageAnim.play("damaged")
 		if hp <= 0:
 			#probably do something fancier than just deleting itself
-			get_tree().get_root().get_node("World").guy_dead()
-			$Die1.play()
-			invuln = true
-			$Sprite.visible = false
-			$Sprite2.visible=false
-			yield($Die1, "finished")
-			
+			var world = get_tree().get_root().get_node("World")
+			world.guy_dead()
+			var dieSound
+			if world.countdown <= 0:
+				dieSound = $Die2.duplicate()
+			else:
+				dieSound = $Die1.duplicate()
+			world.add_child(dieSound)
+			dieSound.position = position
+			dieSound.play()
 			queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -49,6 +52,7 @@ func _on_Timer_timeout():
 	#print(state)
 	match state:
 		0:
+			$Sprite.play("walk")
 			anim.play("idle") #maybe should be walking
 			pouncePos = Vector2((randf()*2)-1, (randf()*2)-1)
 			pouncePos = pouncePos.normalized()
@@ -57,10 +61,12 @@ func _on_Timer_timeout():
 			tim.set_wait_time((randf()*1) + 1)
 			tim.start()
 		1:
+			$Sprite.play("default")
 			speed = 0
 			anim.play("shake")
 			state = 2
 		2:
+			$Sprite.play("walk")
 			#tw.interpolate_property(self, "speed", 0, SPEED_MAX, STATE_TIME, Tween.TRANS_QUART, Tween.EASE_IN_OUT)
 			speed = 50000
 			pouncePos = pl.position - position
@@ -73,6 +79,7 @@ func _on_Timer_timeout():
 			tim.start()
 			state = 3
 		3:
+			$Sprite.play("default")
 			speed = 0
 			anim.play("idle")
 			tim.set_wait_time(0.5)

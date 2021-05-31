@@ -61,3 +61,28 @@ color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Retry" type="Button" parent="."]
+margin_left = 525.429
+margin_top = 500.031
+margin_right = 773.429
+margin_bottom = 579.031
+theme = ExtResource( 1 )
+text = "Retry"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Button" parent="."]
+margin_left = 527.017
+margin_top = 601.624
+margin_right = 775.017
+margin_bottom = 680.624
+theme = ExtResource( 1 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Retry" to="." method="_on_Retry_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]

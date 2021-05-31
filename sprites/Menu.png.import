@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ammo_counter.png-7067761aa37e4725a35f8e8583a5bf83.stex"
+path="res://.import/Menu.png-7ad8511689c59164e02952cc755c99f1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ammo_counter.png"
-dest_files=[ "res://.import/ammo_counter.png-7067761aa37e4725a35f8e8583a5bf83.stex" ]
+source_file="res://sprites/Menu.png"
+dest_files=[ "res://.import/Menu.png-7ad8511689c59164e02952cc755c99f1.stex" ]
 
 [params]
 

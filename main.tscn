@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://levels/Saloon_Final/level_saloon_base.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://font/main_theme.tres" type="Theme" id=4]
 [ext_resource path="res://level1.gd" type="Script" id=5]
 [ext_resource path="res://sprites/health.png" type="Texture" id=6]
+[ext_resource path="res://sprites/ammo_counter.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 438.168, 360 )
@@ -45,19 +46,44 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 192, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 160, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 128, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 96, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 64, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=18]
+animations = [ {
+"frames": [ SubResource( 17 ), SubResource( 16 ), SubResource( 15 ), SubResource( 14 ), SubResource( 13 ), SubResource( 12 ), SubResource( 11 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
 [node name="World" type="Node2D"]
 script = ExtResource( 5 )
-
-[node name="ReloadText" type="RichTextLabel" parent="."]
-margin_left = 1193.6
-margin_top = 644.881
-margin_right = 1253.6
-margin_bottom = 709.881
-theme = ExtResource( 4 )
-text = "6"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 collision_layer = 3
@@ -162,6 +188,11 @@ text = "TIME 'TILL NEXT ROUND:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ShotSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 1216.22, 663.266 )
+scale = Vector2( 2.75, 2.75 )
+frames = SubResource( 18 )
 
 [connection signal="timeout" from="windowTimer" to="." method="_on_windowTimer_timeout"]
 [connection signal="timeout" from="roundTimer" to="." method="_on_roundTimer_timeout"]

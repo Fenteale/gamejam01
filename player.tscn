@@ -295,9 +295,9 @@ shape = SubResource( 1 )
 position = Vector2( -0.589, -1.989 )
 scale = Vector2( 2.75, 2.75 )
 z_index = 1
-frames = SubResource( 21 )
-animation = "down"
-frame = 2
+frames = SubResource( 35 )
+animation = "right"
+frame = 7
 speed_scale = 2.0
 playing = true
 

@@ -16,3 +16,13 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_Quit_pressed():
+	get_tree().quit()
+
+
+func _on_Retry_pressed():
+	get_tree().get_root().add_child(load("res://main.tscn").instance())
+	queue_free()
+	
