@@ -5,10 +5,10 @@ extends Area2D
 # var a = 2
 # var b = "text"
 var obtainable = false
-
+var type = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Sprite.frame = type
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,7 +18,15 @@ func _ready():
 
 func _on_Area2D_body_entered(body):
 	if obtainable:
-		body.add_hp(1)
+		match type:
+			0:
+				body.add_hp(1)
+			1:
+				body.add_damage(1)
+			3:
+				body.decrease_reload(0.75)
+			4:
+				body.add_speed()
 
 		get_tree().get_root().get_node("World").remove_powerups()
 

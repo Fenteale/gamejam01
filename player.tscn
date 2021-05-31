@@ -241,7 +241,7 @@ scale = Vector2( 2.75, 2.75 )
 z_index = 1
 frames = SubResource( 21 )
 animation = "down"
-frame = 7
+frame = 1
 speed_scale = 2.0
 playing = true
 

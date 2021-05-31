@@ -12,6 +12,7 @@ var speed = 0
 var tim
 var pouncePos = Vector2(0,0)
 var spawn_anim = "spawn_sky"
+var invuln = true
 
 onready var tw = get_node("Tween")
 onready var anim = get_node("AnimationPlayer")
@@ -24,12 +25,13 @@ func _ready():
 	anim.play(spawn_anim)
 
 func on_hit(damage):
-	hp -= damage
-	$damageAnim.play("damaged")
-	if hp <= 0:
-		#probably do something fancier than just deleting itself
-		get_tree().get_root().get_node("World").guy_dead()
-		queue_free()
+	if not invuln:
+		hp -= damage
+		$damageAnim.play("damaged")
+		if hp <= 0:
+			#probably do something fancier than just deleting itself
+			get_tree().get_root().get_node("World").guy_dead()
+			queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -73,6 +75,7 @@ func _on_Timer_timeout():
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if "spawn" in anim_name:
+		invuln = false
 		var t = Timer.new()
 		t.set_wait_time(randf())
 		t.set_one_shot(true)

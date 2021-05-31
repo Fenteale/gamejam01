@@ -1,7 +1,8 @@
 extends Node2D
 
 
-var NUM_ENEMIES = 10
+#var NUM_ENEMIES = 10
+var NUM_ENEMIES = 1
 var NUM_ENEMIES_MAX_IN_ROOM = 3
 var enemiesleft # = NUM_ENEMIES
 var bad_inst
@@ -51,13 +52,19 @@ func guy_dead():
 	if countdown <= 0:
 		NUM_ENEMIES += 1
 		roundNum += 1
+		$RoundText.text = "Round " + str(roundNum)
 		if (roundNum % 3) == 0:
 			NUM_ENEMIES_MAX_IN_ROOM += 1
 		var pow_group = Node2D.new() 
 		pow1 = pw_inst.instance()
+		pow1.type = (randi()%4) + 1
 		pow1.position = Vector2(460, 320)
 		pow_group.add_child(pow1)
 		pow2 = pw_inst.instance()
+		if $player.hp == $player.MAX_HP:
+			pow2.type = (randi() % 4) + 1
+			while pow2.type == pow1.type:
+				pow2.type = (randi() % 4) + 1
 		pow2.position = Vector2(830, 320)
 		pow_group.add_child(pow2)
 		add_child(pow_group)
@@ -111,9 +118,9 @@ func spawn_badguy():
 #	pass
 
 func remove_powerups():
-	if pow1:
+	if is_instance_valid(pow1):
 		pow1.queue_free()
-	if pow2:
+	if is_instance_valid(pow2):
 		pow2.queue_free()
 
 func _on_windowTimer_timeout():
@@ -122,4 +129,5 @@ func _on_windowTimer_timeout():
 
 func _on_roundTimer_timeout():
 	$RoundOverText.visible = false
+	remove_powerups()
 	_ready()

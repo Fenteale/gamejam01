@@ -19,14 +19,15 @@ enum {
 	LOOK_DOWN
 }
 
-const MAX_SPEED = 20000
+var MAX_SPEED # = 20000
 const DODGE_SPEED = 40000
-const RELOAD_TIME = 1
+var RELOAD_TIME #= 1
 const MAX_HP = 3
-var hp = MAX_HP
-var shots = 6
-var isDying = false
-var speed = MAX_SPEED
+var hp # = MAX_HP
+var shots # = 6
+var isDying #= false
+var speed #= MAX_SPEED
+var damage #= 1
 
 var motion = Vector2()
 onready var poolyaScene = preload("res://poolya.tscn")
@@ -39,6 +40,14 @@ var moveState
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	MAX_SPEED = 20000
+	RELOAD_TIME = 1
+	hp = MAX_HP
+	shots = 6
+	isDying = false
+	speed = MAX_SPEED
+	damage = 1
+	
 	get_node("aimer/reload_ind").visible = false
 	reloadText = get_tree().get_root().get_node("World/ReloadText")
 	reloadText.text = str(shots)
@@ -50,7 +59,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if hp <= 0:
-		get_tree().change_scene("res://gambeover.tscn")
+		var gmbovr = preload("res://gambeover.tscn").instance()
+		gmbovr.roundNum = get_tree().get_root().get_node("World").roundNum
+		get_tree().get_root().add_child(gmbovr)
+		
 	
 	if $RollTimer.is_stopped():
 		moveState = NO_MOVEMENT
@@ -86,7 +98,7 @@ func _physics_process(delta):
 				tim.wait_time = RELOAD_TIME
 				tim.start()
 				var tw = get_node("Tween")
-				tw.interpolate_property(reloadInd, "global_rotation", 0, 2*PI, RELOAD_TIME, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+				tw.interpolate_property(reloadInd, "global_rotation", 0, 4*PI, RELOAD_TIME, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 				tw.start()
 		
 		if Input.is_action_just_pressed("roll"):
@@ -178,6 +190,7 @@ func _physics_process(delta):
 			var poolya = poolyaScene.instance()
 			poolya.position = position
 			poolya.rotation = an.rotation
+			poolya.DAMAGE = damage
 			get_tree().get_root().add_child(poolya)
 			shots -= 1
 			reloadText.text = str(shots)
@@ -209,6 +222,8 @@ func _on_Timer_timeout():
 
 func _on_hurtme_body_entered(body):
 	if Iframe.is_stopped() and $RollTimer.is_stopped():
+		if body.has_meta("invuln") and body.invuln == true:
+			return
 		isDying = true
 		hp -= 1
 		hpText.frame = hp
@@ -238,3 +253,13 @@ func add_hp(added_hp):
 	#hp += added_hp
 	hp = MAX_HP
 	hpText.frame = hp
+	
+func add_damage(added_dmg):
+	damage += added_dmg
+
+func decrease_reload(re_dec):
+	RELOAD_TIME *= re_dec
+	
+func add_speed():
+	MAX_SPEED += 5000
+	speed = MAX_SPEED

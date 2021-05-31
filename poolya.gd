@@ -5,7 +5,7 @@ extends Area2D
 # var a = 2
 # var b = "text"
 const SPEED = 1000
-const DAMAGE = 1
+var DAMAGE = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

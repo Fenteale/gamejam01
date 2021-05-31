@@ -195,6 +195,7 @@ tracks/3/keys = {
 }
 
 [sub_resource type="Animation" id=12]
+length = 0.9
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
 tracks/0/interp = 1
@@ -305,6 +306,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [ 0.0, 0.0 ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite2:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
 
 [sub_resource type="Animation" id=14]
 length = 0.3
@@ -339,13 +352,16 @@ tracks/0/keys = {
 collision_layer = 2
 collision_mask = 4
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_vertical_guides_": [ -413.085 ]
+}
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 2.75, 2.75 )
 z_index = 1
 frames = SubResource( 7 )
 animation = "walk"
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -363,6 +379,7 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "spawn_sky"
 anims/idle = SubResource( 9 )
 anims/pounce = SubResource( 10 )
 anims/shake = SubResource( 11 )

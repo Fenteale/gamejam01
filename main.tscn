@@ -125,6 +125,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="RoundText" type="RichTextLabel" parent="."]
+margin_left = 13.3303
+margin_top = -6.40186
+margin_right = 347.33
+margin_bottom = 57.5981
+theme = ExtResource( 4 )
+text = "Round 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HP" type="AnimatedSprite" parent="."]
 position = Vector2( 148.905, 674.21 )
 scale = Vector2( 2.75, 2.75 )
@@ -137,15 +148,15 @@ wait_time = 2.0
 one_shot = true
 
 [node name="roundTimer" type="Timer" parent="."]
-wait_time = 15.0
+wait_time = 8.0
 one_shot = true
 
 [node name="RoundOverText" type="RichTextLabel" parent="."]
 visible = false
-margin_left = 78.4442
-margin_top = 18.4949
-margin_right = 1287.44
-margin_bottom = 137.495
+margin_left = 89.1229
+margin_top = 50.5311
+margin_right = 1298.12
+margin_bottom = 169.531
 theme = ExtResource( 4 )
 text = "TIME 'TILL NEXT ROUND:"
 __meta__ = {
