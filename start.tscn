@@ -52,8 +52,18 @@ stream = ExtResource( 4 )
 volume_db = -15.0
 autoplay = true
 
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 184.0
+margin_top = 32.0
+margin_right = 1112.0
+margin_bottom = 237.0
+theme = ExtResource( 6 )
+text = "Silver Sorcery"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Controls" type="Sprite" parent="."]
-visible = false
 texture = ExtResource( 5 )
 centered = false
 
@@ -64,17 +74,6 @@ margin_right = 192.586
 margin_bottom = 81.0
 theme = ExtResource( 2 )
 text = "Back"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 184.0
-margin_top = 32.0
-margin_right = 1112.0
-margin_bottom = 237.0
-theme = ExtResource( 6 )
-text = "Silver Sorcery"
 __meta__ = {
 "_edit_use_anchors_": false
 }
