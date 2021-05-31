@@ -906,7 +906,7 @@ stream = ExtResource( 18 )
 
 [node name="song" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 20 )
-volume_db = -10.0
+volume_db = -15.0
 autoplay = true
 
 [connection signal="timeout" from="windowTimer" to="." method="_on_windowTimer_timeout"]
