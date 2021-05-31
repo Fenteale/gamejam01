@@ -12,6 +12,13 @@ enum {
 	MOVE_DOWNLEFT
 }
 
+enum {
+	LOOK_UP,
+	LOOK_RIGHT,
+	LOOK_LEFT,
+	LOOK_DOWN
+}
+
 const MAX_SPEED = 20000
 const DODGE_SPEED = 40000
 const RELOAD_TIME = 1
@@ -23,7 +30,7 @@ var speed = MAX_SPEED
 
 var motion = Vector2()
 onready var poolyaScene = preload("res://poolya.tscn")
-onready var reloadInd = get_node("reload_ind")
+onready var reloadInd = get_node("aimer/reload_ind")
 onready var Iframe = get_node("IFrames")
 onready var anim = get_node("AnimationPlayer")
 var reloadText
@@ -32,11 +39,12 @@ var moveState
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_node("reload_ind").visible = false
+	get_node("aimer/reload_ind").visible = false
 	reloadText = get_tree().get_root().get_node("World/ReloadText")
 	reloadText.text = str(shots)
 	hpText = get_tree().get_root().get_node("World/HP")
 	hpText.frame = hp
+	$aimer.frame = 2
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -78,7 +86,7 @@ func _physics_process(delta):
 				tim.wait_time = RELOAD_TIME
 				tim.start()
 				var tw = get_node("Tween")
-				tw.interpolate_property(reloadInd, "rotation_degrees", 0, 360, RELOAD_TIME, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+				tw.interpolate_property(reloadInd, "global_rotation", 0, 2*PI, RELOAD_TIME, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 				tw.start()
 		
 		if Input.is_action_just_pressed("roll"):
@@ -128,6 +136,42 @@ func _physics_process(delta):
 	#var rel_pos = get_viewport().get_mouse_position() - position
 	#an.rotation_degrees = atan(rel_pos.y / rel_pos.x)
 	an.look_at(get_viewport().get_mouse_position())
+	var spriteToPlay = LOOK_RIGHT
+	var degParsed = an.rotation_degrees
+	
+	degParsed = int(degParsed) % 360
+	if degParsed < 0:
+		degParsed = 360 + degParsed
+	
+	if degParsed >= 315 or degParsed < 45:
+		print("LOOK RIGHT")
+		spriteToPlay = LOOK_RIGHT
+		an.flip_v = false
+		an.play("right")
+		if $ShootDelay.is_stopped():
+			an.frame = 2
+	elif degParsed >= 45 and degParsed < 135:
+		print("LOOK DOWN")
+		spriteToPlay = LOOK_DOWN
+		an.flip_v = false
+		an.play("down")
+		if $ShootDelay.is_stopped():
+			an.frame = 2
+	elif degParsed >= 135 and degParsed < 225:
+		print("LOOK LEFT")
+		spriteToPlay = LOOK_LEFT
+		an.flip_v = true
+		an.play("right")
+		if $ShootDelay.is_stopped():
+			an.frame = 2
+	else:
+		print("LOOK UP")
+		an.flip_v = false
+		spriteToPlay = LOOK_UP
+		an.play("up")
+		if $ShootDelay.is_stopped():
+			an.frame = 2
+	
 	if Input.is_action_pressed("ui_accept") and $RollTimer.is_stopped() and $ShootDelay.is_stopped():
 		if shots > 0:
 			print("Spawning thing")
@@ -138,10 +182,21 @@ func _physics_process(delta):
 			shots -= 1
 			reloadText.text = str(shots)
 			$ShootDelay.start()
-			$aimer.stop()
-			$aimer.play("up")
-			$aimer.play("right")
-			$aimer.playing = true
+			an.stop()
+			match spriteToPlay:
+				LOOK_RIGHT:
+					an.play("up")
+					an.play("right")
+				LOOK_UP:
+					an.play("right")
+					an.play("up")
+				LOOK_DOWN:
+					an.play("up")
+					an.play("down")
+				LOOK_LEFT:
+					an.play("up")
+					an.play("right")
+			an.playing = true
 	#an.rotation_degrees += 45
 	
 

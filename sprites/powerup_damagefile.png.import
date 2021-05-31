@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gun_sprites.png-c635f6d8f054e936509075ce19b2ea93.stex"
+path="res://.import/powerup_damagefile.png-167544df77475e0d218bf548e3ae66cc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/gun_sprites.png"
-dest_files=[ "res://.import/gun_sprites.png-c635f6d8f054e936509075ce19b2ea93.stex" ]
+source_file="res://sprites/powerup_damagefile.png"
+dest_files=[ "res://.import/powerup_damagefile.png-167544df77475e0d218bf548e3ae66cc.stex" ]
 
 [params]
 
