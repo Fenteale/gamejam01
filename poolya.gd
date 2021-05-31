@@ -6,6 +6,7 @@ extends Area2D
 # var b = "text"
 const SPEED = 1000
 var DAMAGE = 1
+var pierce = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,7 +27,12 @@ func _on_KinematicBody2D_body_entered(body):
 	#body.queue_free()
 	if body.has_method("on_hit"):
 		body.on_hit(DAMAGE)
-	queue_free()
+		if pierce <= 0:
+			queue_free()
+		else:
+			pierce -= 1
+	else:
+		queue_free()
 
 
 func _on_Timer_timeout():
