@@ -2,7 +2,7 @@ extends Node2D
 
 
 #var NUM_ENEMIES = 10
-var NUM_ENEMIES = 1
+var NUM_ENEMIES = 3
 var NUM_ENEMIES_MAX_IN_ROOM = 3
 var enemiesleft # = NUM_ENEMIES
 var bad_inst

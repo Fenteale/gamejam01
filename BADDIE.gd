@@ -31,6 +31,12 @@ func on_hit(damage):
 		if hp <= 0:
 			#probably do something fancier than just deleting itself
 			get_tree().get_root().get_node("World").guy_dead()
+			$Die1.play()
+			invuln = true
+			$Sprite.visible = false
+			$Sprite2.visible=false
+			yield($Die1, "finished")
+			
 			queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,6 +68,7 @@ func _on_Timer_timeout():
 			#tw.start()
 			#tim.stop()
 			anim.play("pounce") #, -1, 0.7)
+			$SoundAttack.play()
 			tim.set_wait_time(0.7)
 			tim.start()
 			state = 3
@@ -85,3 +92,4 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		t.queue_free()
 		tim.wait_time = STATE_TIME
 		tim.start()
+

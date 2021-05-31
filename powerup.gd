@@ -23,6 +23,8 @@ func _on_Area2D_body_entered(body):
 				body.add_hp(1)
 			1:
 				body.add_damage(1)
+			2:
+				body.add_pierce()
 			3:
 				body.decrease_reload(0.75)
 			4:

@@ -28,6 +28,7 @@ var shots # = 6
 var isDying #= false
 var speed #= MAX_SPEED
 var damage #= 1
+var pierce = 0
 
 var motion = Vector2()
 onready var poolyaScene = preload("res://poolya.tscn")
@@ -156,28 +157,24 @@ func _physics_process(delta):
 		degParsed = 360 + degParsed
 	
 	if degParsed >= 315 or degParsed < 45:
-		print("LOOK RIGHT")
 		spriteToPlay = LOOK_RIGHT
 		an.flip_v = false
 		an.play("right")
 		if $ShootDelay.is_stopped():
 			an.frame = 2
 	elif degParsed >= 45 and degParsed < 135:
-		print("LOOK DOWN")
 		spriteToPlay = LOOK_DOWN
 		an.flip_v = false
 		an.play("down")
 		if $ShootDelay.is_stopped():
 			an.frame = 2
 	elif degParsed >= 135 and degParsed < 225:
-		print("LOOK LEFT")
 		spriteToPlay = LOOK_LEFT
 		an.flip_v = true
 		an.play("right")
 		if $ShootDelay.is_stopped():
 			an.frame = 2
 	else:
-		print("LOOK UP")
 		an.flip_v = false
 		spriteToPlay = LOOK_UP
 		an.play("up")
@@ -191,6 +188,7 @@ func _physics_process(delta):
 			poolya.position = position
 			poolya.rotation = an.rotation
 			poolya.DAMAGE = damage
+			poolya.pierce = pierce
 			get_tree().get_root().add_child(poolya)
 			shots -= 1
 			reloadText.text = str(shots)
@@ -263,3 +261,6 @@ func decrease_reload(re_dec):
 func add_speed():
 	MAX_SPEED += 5000
 	speed = MAX_SPEED
+
+func add_pierce():
+	pierce += 1
